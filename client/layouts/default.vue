@@ -1,11 +1,3 @@
 <template>
-  <div class="flex items-center justify-center">
-    <Nuxt />
-  </div>
+  <Nuxt />
 </template>
-
-<style>
-html,body {
-  @apply bg-gray-100
-}
-</style>
