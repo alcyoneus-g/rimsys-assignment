@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,13 @@ Route::get('/', [Controller::class, 'routes'])
     ->withoutMiddleware('api');
 Route::get('/example', [Controller::class, 'example'])->name('example route');
 Route::get('/error', [Controller::class, 'error'])->name('error route');
+
+Route::get('/skills', [SkillController::class, 'index']);
+Route::put('/skills/{id}', [SkillController::class, 'update']);
+Route::delete('/skills/{id}', [SkillController::class, 'delete']);
+Route::post('/skills', [SkillController::class, 'store']);
+
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::put('/projects/{id}', [ProjectController::class, 'update']);
+Route::delete('/projects/{id}', [ProjectController::class, 'delete']);
+Route::post('/projects', [ProjectController::class, 'store']);
