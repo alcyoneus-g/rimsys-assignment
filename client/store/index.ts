@@ -1,4 +1,3 @@
-import type { Context } from '@nuxt/types'
 import type { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 interface Hero {
@@ -7,10 +6,15 @@ interface Hero {
   intro: string;
 }
 
-type Skills = {
+interface Skill {
+  id: number;
   label: string;
   value: number;
-}[]
+  created_at?: string;
+  updated_at?: string;
+}
+
+type Skills = Skill[]
 
 type Offers = {
   title?: string;
@@ -20,10 +24,15 @@ type Offers = {
   rowSpan?: number;
 }[]
 
-type Projects = {
+interface Project {
+  id: number;
   src: string;
   to: string;
-}[]
+  created_at?: string;
+  updated_at?: string;
+}
+
+type Projects = Project[]
 
 export interface RootState {
   name: string;
@@ -52,32 +61,7 @@ export const state = (): RootState => ({
   consectetur suscipit iusto voluptate at quaerat? Lorem ipsum dolor sit,
   amet consectetur adipisicing elit. Quo, rerum cum. Reiciendis, into
   voluptate at quaerat?`,
-  skills: [
-    {
-      label: 'HTML',
-      value: 50,
-    },
-    {
-      label: 'CSS',
-      value: 85,
-    },
-    {
-      label: 'JavaScript',
-      value: 10,
-    },
-    {
-      label: 'Web Desgin',
-      value: 25,
-    },
-    {
-      label: 'PHP',
-      value: 65,
-    },
-    {
-      label: 'NodeJS',
-      value: 100,
-    },
-  ],
+  skills: [],
   offers: [
     {
       title: 'This is a title',
@@ -129,24 +113,7 @@ export const state = (): RootState => ({
       colSpan: 2,
     },
   ],
-  projects: [
-    {
-      src: 'https://unsplash.it/536/285',
-      to: '#',
-    },
-    {
-      src: 'https://unsplash.it/536/285',
-      to: '#',
-    },
-    {
-      src: 'https://unsplash.it/536/285',
-      to: '#',
-    },
-    {
-      src: 'https://unsplash.it/536/285',
-      to: '#',
-    },
-  ],
+  projects: [],
 })
 
 export const getters: GetterTree<RootState, RootState> = {
@@ -160,55 +127,111 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const MutationType = {
-  CHANGE_NAME: 'changeName',
   UPDATE_SKILLS: 'updateSkills',
   UPDATE_PROJECTS: 'updateProjects',
 }
 
 export const mutations: MutationTree<RootState> = {
-  [MutationType.CHANGE_NAME]: (state, newName: string) => { state.name = newName },
   [MutationType.UPDATE_SKILLS]: (state, skills: Skills) => { state.skills = skills },
   [MutationType.UPDATE_PROJECTS]: (state, projects: Projects) => { state.projects = projects },
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  changeName ({ commit }, _context: Context) {
-    commit(MutationType.CHANGE_NAME, _context)
-  },
-
-  async getSkills ({ commit }) {
+  async getSkills({ commit }) {
     try {
-      await this.$axios.$get('/skills')
-      commit(MutationType.UPDATE_SKILLS, [])
+      const skills = await this.$axios.$get('/skills')
+      commit(MutationType.UPDATE_SKILLS, skills)
     } catch (e) {
       throw new Error(`Error white fetching skills: ${e}`)
     }
   },
 
-  async getProjects ({ commit }) {
+  async getProjects({ commit }) {
     try {
-      await this.$axios.$get('/projects')
-      commit(MutationType.UPDATE_PROJECTS, [])
+      const projects = await this.$axios.$get('/projects')
+      commit(MutationType.UPDATE_PROJECTS, projects)
     } catch (e) {
       throw new Error(`Error white fetching projects: ${e}`)
     }
   },
 
-  async updateSkills ({ commit }, _context: Context) {
+  async updateSkill({ commit, state }, _context: Skill) {
     try {
-      await this.$axios.$post('/skills', _context)
-      commit(MutationType.UPDATE_SKILLS, [])
+      const updatedSkill = await this.$axios.$put(`/skills/${_context.id}`, _context)
+
+      const skills: Skills = JSON.parse(JSON.stringify(state.skills))
+      const targetIndex = skills.findIndex(skill => skill.id === updatedSkill.id);
+      if (targetIndex !== -1) skills[targetIndex] = updatedSkill
+
+      commit(MutationType.UPDATE_SKILLS, skills)
     } catch (e) {
-      throw new Error(`Error white update skills: ${e}`)
+      throw new Error(`Error white updating skill: ${e}`)
     }
   },
 
-  async updateProjects ({ commit }, _context: Context) {
+  async deleteSkill({ commit, state }, _context: number) {
     try {
-      await this.$axios.$post('/projects', _context)
-      commit(MutationType.UPDATE_PROJECTS, [])
+      await this.$axios.$delete(`/skills/${_context}`)
+      const skills: Skills = JSON.parse(JSON.stringify(state.skills))
+      const targetIndex = skills.findIndex(skill => skill.id === _context);
+      if (targetIndex !== -1) skills.splice(targetIndex, 1)
+
+      commit(MutationType.UPDATE_SKILLS, skills)
     } catch (e) {
-      throw new Error(`Error white update projects: ${e}`)
+      throw new Error(`Error white deleting skill: ${e}`)
+    }
+  },
+
+  async addSkill({ commit, state }, _context: Skill) {
+    try {
+      const addedSkill = await this.$axios.$post('/skills', _context)
+
+      const skills: Skills = JSON.parse(JSON.stringify(state.skills))
+      skills.push(addedSkill)
+
+      commit(MutationType.UPDATE_SKILLS, skills)
+    } catch (e) {
+      throw new Error(`Error white adding new skill: ${e}`)
+    }
+  },
+
+  async updateProject({ commit, state }, _context: Project) {
+    try {
+      const updatedProject = await this.$axios.$put(`/projects/${_context.id}`, _context)
+
+      const projects: Projects = JSON.parse(JSON.stringify(state.projects))
+      const targetIndex = projects.findIndex(skill => skill.id === updatedProject.id);
+      if (targetIndex !== -1) projects[targetIndex] = updatedProject
+
+      commit(MutationType.UPDATE_SKILLS, projects)
+    } catch (e) {
+      throw new Error(`Error white updating skill: ${e}`)
+    }
+  },
+
+  async deleteProject({ commit, state }, _context: number) {
+    try {
+      await this.$axios.$delete(`/projects/${_context}`)
+      const projects: Projects = JSON.parse(JSON.stringify(state.projects))
+      const targetIndex = projects.findIndex(skill => skill.id === _context);
+      if (targetIndex !== -1) projects.splice(targetIndex, 1)
+
+      commit(MutationType.UPDATE_PROJECTS, projects)
+    } catch (e) {
+      throw new Error(`Error white deleting projects: ${e}`)
+    }
+  },
+
+  async addProject({ commit, state }, _context: Skill) {
+    try {
+      const addedProject = await this.$axios.$post('/projects', _context)
+
+      const projects: Projects = JSON.parse(JSON.stringify(state.projects))
+      projects.push(addedProject)
+
+      commit(MutationType.UPDATE_PROJECTS, projects)
+    } catch (e) {
+      throw new Error(`Error white adding new projects: ${e}`)
     }
   },
 }

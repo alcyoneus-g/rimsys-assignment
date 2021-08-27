@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSrcToProjectTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSrcToProjectTable extends Migration
      */
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            //
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('src');
+            $table->string('to');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSrcToProjectTable extends Migration
      */
     public function down()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('projects');
     }
 }

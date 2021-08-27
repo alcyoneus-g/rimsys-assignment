@@ -8,6 +8,7 @@
     <Projects />
     <Contact />
     <Footer />
+    <UpdateInfo />
   </main>
 </template>
 
@@ -16,6 +17,7 @@ import Vue from 'vue'
 
 import Navbar from '@/components/shared/Navbar/Navbar.vue'
 import Footer from '@/components/shared/Footer/Footer.vue'
+import UpdateInfo from '@/components/shared/UpdateInfo/UpdateInfo.vue'
 
 import Hero from '@/components/sections/Hero/Hero.vue'
 import Bio from '@/components/sections/Bio/Bio.vue'
@@ -34,11 +36,27 @@ export default Vue.extend({
     Projects,
     Contact,
     Footer,
+    UpdateInfo
   },
+
   data() {
     return {}
   },
-  mounted() {},
+
+  async mounted () {
+    try {
+      await this.$store.dispatch('getSkills')
+      await this.$store.dispatch('getProjects')
+    } catch (e) {
+      console.log(e)
+      this.$toast.show({
+        type: 'danger',
+        title: 'Error',
+        message: 'There was an error while fetching data',
+      })
+    }
+  },
+
   methods: {},
 })
 </script>
