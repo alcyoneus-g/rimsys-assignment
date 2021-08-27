@@ -7,7 +7,7 @@
     "
     >
       <ul class="flex items-center space-x-5 py-2">
-        <li class="mr-auto font-semibold">© 2021 John Doe</li>
+        <li class="mr-auto font-semibold">© 2021 Jacob Liu</li>
         <li v-for="item in items" :key="item.label">
           <a
             :href="item.to"

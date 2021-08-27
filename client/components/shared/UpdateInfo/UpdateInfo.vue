@@ -87,7 +87,7 @@ export default Vue.extend({
       }, 400)
     },
 
-    clickOnOverlay(e) {
+    clickOnOverlay(e : any) {
       if (e.target.classList.contains('overlay')) this.closeModal()
     },
   },

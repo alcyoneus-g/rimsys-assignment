@@ -177,7 +177,7 @@ export default Vue.extend({
   },
 
   methods: {
-    openLink (e) {
+    openLink (e : any) {
       e.preventDefault()
     },
 

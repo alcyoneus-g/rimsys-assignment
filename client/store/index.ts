@@ -45,71 +45,45 @@ export interface RootState {
 }
 
 export const state = (): RootState => ({
-  name: 'John Doe',
-  mail: 'test@test.com',
+  name: 'Jacob Liu',
+  mail: 'spring.scene@hotmail.com',
   hero: {
     position: 'Full Stack Web Developer',
     avatar: 'https://unsplash.it/290/335',
-    intro: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam doloribus omnis ea ex error reiciendis',
+    intro: `Full Stack Engineer with 5+ years of experience in developing user interfaces, testing, debugging within eCommerce technologies. 
+    Adept at contributing highly collaborative work environment, finding solutions and determining customer satisfaction. Always try to learning latest technologies`,
   },
-  bio: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo, rerum cum.
-  Reiciendis, incidunt. Fugit, sequi explicabo dolore adipisci aspernatur,
-  ducimus nesciunt, accusantium rerum maxime consectetur suscipit iusto
-  voluptate at quaerat? Lorem ipsum dolor sit, amet consectetur adipisicing
-  elit. Quo, rerum cum. Reiciendis, incidunt. Fugit, sequi explicabo dolore
-  adipisci aspernatur, ducimus nesciunt, accusantium rerum maxime
-  consectetur suscipit iusto voluptate at quaerat? Lorem ipsum dolor sit,
-  amet consectetur adipisicing elit. Quo, rerum cum. Reiciendis, into
-  voluptate at quaerat?`,
+  bio: `As I senior full stack software engineer, I work closely with cross-functional teams, including participation in daily Scrum calls. I always try to follow and maintain a good coding architecture before starting coding, I usually brainstormed my idea with other developers.
+  I have great passion and great honored showcases with public certifications. And since, I've been doing this exact type of work for last 5 years, I would be able to hit the ground running and start contribution immediately to your team's efforts.`,
   skills: [],
   offers: [
     {
-      title: 'This is a title',
-      secondaryTitle: 'in the card that is a bit long',
-      text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?
-      Eveniet a ducimus nam dolorem harum. Aliquid, distinctio. Molestiae
-      debitis aliquam laudantium atque pariatur numquam sunt in earum
-      placeat architecto.`,
+      title: 'Laravel',
+      secondaryTitle: 'is my strength.',
+      text: `Designed and built back-end services that expose REST APIs for
+      consumption via mobile and web-based admin panel.`,
     },
     {
-      title: 'This is a title that is normal',
-      text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?
-      Eveniet a ducimus nam dolorem harum. Aliquid, distinctio. Molestiae
-      debitis aliquam laudantium atque pariatur numquam sunt in earum
-      placeat architecto.`,
+      title: 'Vue, TailWindCSS',
+      text: `Used in HealthCare, Education and ECommerce projects. Translate design into pixel-perfect frontend pages in mobile responsive.
+      `,
       colSpan: 2,
       rowSpan: 2,
     },
     {
-      title: 'This is a title',
-      secondaryTitle: 'in the card that is a bit long',
+      title: 'Typescript',
+      secondaryTitle: 'makes me precise and organized',
     },
     {
-      text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?
-      Eveniet a ducimus nam dolorem harum. Aliquid, distinctio. Molestiae
-      debitis aliquam laudantium atque pariatur numquam sunt in earum
-      placeat architecto.`,
+      text: `Proficiency with at least one server-side languages/frameworks such as PHP and Laravel`,
       rowSpan: 2,
     },
     {
-      text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?
-      placeat architecto.`,
+      text: `Lifecycle of software development - TDD, CI/CD`,
     },
     {
-      text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?
-      Eveniet a ducimus nam dolorem harum. Aliquid, distinctio. Molestiae
-      debitis aliquam laudantium atque pariatur numquam sunt in earum
-      placeat architecto.`,
-      rowSpan: 3,
-    },
-    {
-      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?',
-    },
-    {
-      text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, nam?
-      Eveniet a ducimus nam dolorem harum. Aliquid, distinctio. Molestiae
-      debitis aliquam laudantium atque pariatur numquam sunt in earum
-      placeat architecto.`,
+      text: `Hands-on Experience implementing cloud infrastructure, Ideally with AWS Lambda serverless architecture.
+      Passion for keeping current on trends related to frontend architectures, performance techniques, accessibility, localization, security and web design/user experience`,
       colSpan: 2,
     },
   ],
